@@ -1,14 +1,16 @@
 <html>
 <body>
 <ul>
-	{{ txt_file_text }}
-	{% for i in assignmentList %}
-		<li> <a href="{{i}}"> </a></li>
-	{% endfor %}
+{% for thing in assignmentList %}
+	<input type="text" name="a_Date" value="{{ thing }}">
+	<input type="text" name="a_Description" value="{{ thing }}"><br>
+{% endfor %}
 
-	{% for i in ExamsList %}
-		<li> <a href="{{i}}"> </a></li>
-	{% endfor %}
+{% for thing in examList %}
+	<input type="text" name="e_Date" value="{{ thing }}">
+	<input type="text" name="e_Description" value="{{ thing }}"><br>
+{% endfor %}
+		
 	
 </ul>
 </body>
