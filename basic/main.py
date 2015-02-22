@@ -6,6 +6,7 @@ import cgi
 import logging
 import wordExtraction
 
+from google.appengine.api import users
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 
@@ -36,6 +37,8 @@ class ConfirmHandler(webapp.RequestHandler):
 		unicode_str = fileitem.decode('utf-8')
 		#logging.info(fileitem)
 		(assignmentList,examList) = wordExtraction.main(unicode_str)
+		data.assignments = assignmentList
+		data.exams = examList
 		logging.info(assignmentList[0])
 		
 		#assignmentList = unicode_str.split("\n")
@@ -47,6 +50,30 @@ class ConfirmHandler(webapp.RequestHandler):
 		template = jinja_environment.get_template('confirm_upload.html')
 		self.response.out.write(template.render(template_values))
 
+class CalendarHandler(webapp.RequestHandler):
+	def post(self):
+		#grab all the things in the form
+		(num_assign, num_exam) = (len(data.assignments), len(data.assignments))
+		for i in range(num_assign):
+			date = self.request.get("a_Date%d" % i)
+			name = self.request.get("a_Description%d" % i)
+		
+		for i in range(num_exam):
+			date = self.request.get("e_Date%d" % i)
+			name = self.request.get("e_Description%d" % i)
+		
+		self.redirect('/success')
+	
+class SuccessHandler(webapp.RequestHandler):
+	def get(self):
+		user = users.get_current_user()
+		logout_url = users.create_logout_url('/')
+		template_values = {'user': user, 'logout_url': logout_url,
+		'assign':str(len(data.assignments)), 'exam':str(len(data.exams))}
+	
+		template = jinja_environment.get_template('success.html')
+		self.response.out.write(template.render(template_values))
+	
 class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 	def post(self):
 		upload_files = self.get_uploads('file')  # 'file' is file upload field in the form
@@ -70,6 +97,8 @@ class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
 app = webapp.WSGIApplication(
 [('/', MainHandler),
 	('/confirm', ConfirmHandler),
+	('/calendar', CalendarHandler),
+	('/success', SuccessHandler),
 	('/upload', UploadHandler),
 	('/serve', ServeHandler),
 ],debug=True)

@@ -1,0 +1,10 @@
+<html>
+<body>
+<a href="{{ logout_url }}"><h1>LOGOUT</h1></a>
+Hi, Your Google Calendar Is Updated!!!!<br>
+{{ assign}} assignments <br>
+{{ exam }} exams
+{% if users %}
+	Hi {{ user.nickname }}! Your Google Calendar has been updated! 
+{% endif %}
+</body></html>

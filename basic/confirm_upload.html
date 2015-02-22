@@ -1,17 +1,22 @@
 <html>
 <body>
-<ul>
+<form action="/calendar" method="POST" enctype="multipart/form-data">
+<ul id="assignments">
+<h1>Assignments</h1>
 {% for thing in assignmentList %}
-	<input type="text" name="a_Date" value="{{ thing[0] }}">
-	<input type="text" name="a_Description" value="{{ thing[1] }}"><br>
+	<input type="text" name="a_Date{{ thing.index }}" value="{{ thing[0] }}">
+	<input type="text" name="a_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
 {% endfor %}
-
-{% for thing in exams %}
-	<input type="text" name="e_Date" value="{{ thing[0] }}">
-	<input type="text" name="e_Description" value="{{ thing[1] }}"><br>
-{% endfor %}
-		
-	
 </ul>
+
+<ul id="exams">
+<h1>Exams</h1>
+{% for thing in exams %}
+	<input type="text" name="e_Date{{ thing.index }}" value="{{ thing[0] }}">
+	<input type="text" name="e_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
+{% endfor %}	
+</ul>
+<input type="submit">
+</form>
 </body>
 </html>
