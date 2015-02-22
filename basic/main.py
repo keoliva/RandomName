@@ -15,6 +15,7 @@ jinja_environment = jinja2.Environment(loader =
 
 class Struct(): pass
 data = Struct()
+
 	
 class MainHandler(webapp.RequestHandler):
 	def get(self):
@@ -42,7 +43,7 @@ class ConfirmHandler(webapp.RequestHandler):
 		unicode_str = fileitem.decode('utf-8')
 		logging.info("``````````````````````````")
 		logging.debug(fileitem)
-		(assignmentList,examList) = wordExtraction.main(unicode_str)
+		(assignmentList,examList) = main(unicode_str)
 		data.assignments = assignmentList
 		data.exams = examList
 		#logging.info(assignmentList[0])
@@ -52,7 +53,7 @@ class ConfirmHandler(webapp.RequestHandler):
 		##examList = []
 		##logging.log(root,assignmentList[0][0])
 		template_values = {'assignmentList': assignmentList,
-							'exams': examList}
+				'exams': examList}
 		template = jinja_environment.get_template('confirm_upload.html')
 		self.response.out.write(template.render(template_values))
 
@@ -74,6 +75,9 @@ class CalendarHandler(webapp.RequestHandler):
 class SuccessHandler(webapp.RequestHandler):
 	def get(self):
 		user = users.get_current_user()
+		#a = wordExtraction.createics(data.assignments,data.exams)
+		logging.info(add(2,3))
+		print add(4,5)
 		logout_url = users.create_logout_url('/')
 		template_values = {'user': user, 'logout_url': logout_url,
 		'assign':str(len(data.assignments)), 'exam':str(len(data.exams))}
