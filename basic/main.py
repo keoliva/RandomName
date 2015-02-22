@@ -142,37 +142,73 @@
 
 import os
 import urllib
+import jinja2
 
 from google.appengine.ext import blobstore
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.api import users
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
+
+jinja_environment = jinja2.Environment(loader = 
+    jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+class Struct():
+    pass
+data = Struct()
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
         upload_url = blobstore.create_upload_url('/upload')
-        self.response.out.write('<html><body>')
-        self.response.out.write('<form action="%s" method="POST" enctype="multipart/form-data">' % upload_url)
-        self.response.out.write("""Upload File: <input type="file" name="file"><br> <input type="submit" name="submit" value="Submit"> </form></body></html>""")
 
-        for b in blobstore.BlobInfo.all():
+        template_values = {'upload_url' : upload_url}
+        template = jinja_environment.get_template('home.html')
+        self.response.out.write(template.render(template_values))
+        
+        #self.response.out.write('<html><body>')
+        #self.response.out.write('<form action="%s" method="POST" enctype="multipart/form-data">' % upload_url)
+        #self.response.out.write("""Upload File: <input type="file" name="file"><br> <input type="submit" name="submit" value="Submit"> </form></body></html>""")
 
-            self.response.out.write('<li><a href="/serve/%s' % str(b.key()) + '">' + str(b.filename) + '</a>')
-
-            if ".txt" in b.filename:
-            	# location = "/serve/" + str(b.key)
-
-            	blob_reader = blobstore.BlobReader(str(b.key()))
-            	value = blob_reader.read()
-            	self.response.out.write('<li>' + value)
-
-
-class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
-        upload_files = self.get_uploads('file')
-        blob_info = upload_files[0]
-        self.redirect('/')
+        #upload_files = self.get_uploads('file')
+        #blob_info = upload_files[0]
+        self.redirect('/upload')
+    
+        #b = blobstore.BlobInfo.all()[0]
+        #Allows you to download the file you just uploaded
+        #self.response.out.write('<li><a href="/serve/%s' % str(b.key()) + '">' + str(b.filename) + '</a>')
+
+        #if ".txt" in b.filename:
+            # location = "/serve/" + str(b.key)
+            #blob_reader = blobstore.BlobReader(str(b.key()))
+            #A HUGE STRING REPRESENTING THE SYLLABUS
+            #txt_file_text = blob_reader.read()
+            #data.text_file = txt_file_text
+            #self.response.out.write('<li>' + value)
+
+            #template_values = {'txt_file_text' : txt_file_text}
+            #template = jinja_environment.get_template('confirm_upload.html')
+            #self.response.out.write(template.render(template_values))
+        
+class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+    def get(self):
+        b = blobstore.BlobInfo.all()[0]
+        #Allows you to download the file you just uploaded
+        #self.response.out.write('<li><a href="/serve/%s' % str(b.key()) + '">' + str(b.filename) + '</a>')
+
+        if ".txt" in b.filename:
+            # location = "/serve/" + str(b.key)
+            blob_reader = blobstore.BlobReader(str(b.key()))
+            #A HUGE STRING REPRESENTING THE SYLLABUS
+            txt_file_text = blob_reader.read()
+            #data.text_file = txt_file_text
+            #self.response.out.write('<li>' + value)
+
+            template_values = {'txt_file_text' : txt_file_text}
+
+            template = jinja_environment.get_template('confirm_upload.html')
+            self.response.out.write(template.render(template_values))
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):
