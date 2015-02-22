@@ -1,0 +1,32 @@
+Syllabus
+02-015 How to Have Fun at a Hackathon
+
+Professor: Kayla Oliva
+Contact: (888)123-4567
+Office: BH 123B
+
+Course Objective:
+What does it mean to be organized? Where is the line between being prepared and overthinking? How do we predict problems and holes within our program? How do we work out the logic before even writing a line of code?
+
+02-015 is designed to get groups to think analytically about potential problems as well as get them to try out new languages and API’s. When do we start? Now.
+
+Grading Policy: 
+Labs 30%
+Exams 30%
+Final 25%
+Assignments 15%
+
+Calendar
+11/23 Assignment 1 Due
+11/24 Lab (“Summer Camp”)
+01/04 Assignment 2 Due
+01/05 Lecture on the Nature of Man
+01/07 Discussion 
+01/08 Lab 1
+01/09 Assignment 3
+01/10 Lecture
+01/11 Discussion (“The Violinist’s Thumb”)
+01/12 Field Trip (Carnegie Library in Oakland)
+01/13 Lab 2
+01/14 Assignment 4
+01/16 Final Exam 
