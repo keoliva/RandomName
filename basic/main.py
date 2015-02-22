@@ -209,6 +209,16 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 
             template = jinja_environment.get_template('confirm_upload.html')
             self.response.out.write(template.render(template_values))
+            
+    def post(self):
+        #login handler code
+        user = users.get_current_user()
+        if user:
+            greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
+                        (user.nickname(), users.create_logout_url('/')))
+        else:
+            greeting = ('<a href="%s">Sign in or register</a>.' %
+                        users.create_login_url('/'))
 
 class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, blob_key):
