@@ -2,13 +2,13 @@
 <body>
 <ul>
 {% for thing in assignmentList %}
-	<input type="text" name="a_Date" value="{{ thing }}">
-	<input type="text" name="a_Description" value="{{ thing }}"><br>
+	<input type="text" name="a_Date" value="{{ thing[0] }}">
+	<input type="text" name="a_Description" value="{{ thing[1] }}"><br>
 {% endfor %}
 
-{% for thing in examList %}
-	<input type="text" name="e_Date" value="{{ thing }}">
-	<input type="text" name="e_Description" value="{{ thing }}"><br>
+{% for thing in exams %}
+	<input type="text" name="e_Date" value="{{ thing[0] }}">
+	<input type="text" name="e_Description" value="{{ thing[1] }}"><br>
 {% endfor %}
 		
 	

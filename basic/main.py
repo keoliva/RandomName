@@ -34,10 +34,13 @@ class ConfirmHandler(webapp.RequestHandler):
 	def post(self):
 		fileitem = self.request.get('user_file')
 		unicode_str = fileitem.decode('utf-8')
-		#(assignmentList,examList) = wordExtraction.main(fileitem)
-		assignmentList = unicode_str.split("\n")
-		logging.debug(assignmentList)
-		examList = []
+		#logging.info(fileitem)
+		(assignmentList,examList) = wordExtraction.main(unicode_str)
+		logging.info(assignmentList[0])
+		
+		#assignmentList = unicode_str.split("\n")
+		#logging.debug(assignmentList)
+		##examList = []
 		##logging.log(root,assignmentList[0][0])
 		template_values = {'assignmentList': assignmentList,
 							'exams': examList}

@@ -1,7 +1,8 @@
 import re
 from datetime import datetime
+import logging
 
-def ExamString (text, examsList, ExamKeys):
+def ExamString(text, examsList, ExamKeys):
     flag = False
     for key in ExamKeys:   # go through the list of the keys
         if key in text:      # if the key is found in that string
@@ -56,6 +57,11 @@ def textReplacement(text):
     text = text.replace("dec ", " 12/")
     return text
 
+
+def cleanList(l):
+        l = filter(lambda x: x != "", l)
+        return l
+
 def getDate(text):
     
     text = textReplacement(text)
@@ -91,7 +97,8 @@ def main(allText):
 #with open ("newsyllabus.txt") as FILE:
 
     #l = list(FILE)
-    
+    #logging.info(allText)
+    #logging.debug(allText)
     l = allText.split("\n")
     # the list to holds the exams and the assignemnts
     examsList = []
@@ -100,38 +107,37 @@ def main(allText):
     # the lists for the keywords of exams and the assignments
     ExamKeys = ["exam ", "test ", "midterm ", "mid term ", "mid-term ", "quiz "]
     AssKeys = ["homework ", "assignment ", "assignments ", " problem set ", " problemset ", "lab ", "paper "]
-    CalendarKeys = ["calendar\n", "schedule\n", "outline\n", "calendar:\n"]
+    CalendarKeys = ["calendar", "schedule", "outline", "calendar:"]
 
     calendarSection = False; # a flag that we are in the calendarSection
     dateFound = False  # a flag when the date is found to handle the multi-line cases
 
     prevDate = None  # initializing the date to None till we encounter a date
 
+    l = cleanList(l)
     for line in l:
-
         # pre-processing for the line
-        line = line.lower()
-        line = line.replace("\t", " ")
+        line = line.lower().replace("\t", " ")
+      #  line = line + "\n"
 
         # If we reached to the calendar section set the flag to true
         if (checkCalendarSection(line, CalendarKeys)):
             calendarSection = True
 
-        line = line.replace("\n", "")
+        #line = line.replace("\n", "")
+
 
         # If we are in the calendar section start getting the information
         if (calendarSection):
-            
+         
             (dateFlag, date) = getDate(line)
 
             if (dateFlag == True):
                 dateFound = True
                 prevDate = date
-
                 #line = ' '.join(line2[1:])
-
             # examsFlag to check if there was an exams keyword
-            (examsFlag, examsListTemp) = ExamString (line, [], ExamKeys)
+            (examsFlag, examsListTemp) = ExamString(line, [], ExamKeys)
             (assFlag, assListTemp) = AssignmentString(line, [], AssKeys)
 
             if (examsFlag == True and prevDate != None):
@@ -139,6 +145,6 @@ def main(allText):
             elif (assFlag == True and prevDate != None):
                 assList = assList + [[str(prevDate), assListTemp[0]]]
 
-    
     return (assList, examsList)
-
+     
+        #return ([["abc", "abd"]], [["cdf", "dfs"]])
