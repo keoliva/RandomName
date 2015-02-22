@@ -143,6 +143,7 @@
 import os
 import urllib
 import jinja2
+import wordExtraction
 
 from google.appengine.ext import blobstore
 from google.appengine.ext import webapp
@@ -204,8 +205,8 @@ class UploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             txt_file_text = blob_reader.read()
             #data.text_file = txt_file_text
             #self.response.out.write('<li>' + value)
-
-            template_values = {'txt_file_text' : txt_file_text}
+            (assignmentList, ExamsList) = wordExtraction.main(txt_file_text)
+            template_values = {"assigmentList":assignmentList, "ExamsList":ExamsList}
 
             template = jinja_environment.get_template('confirm_upload.html')
             self.response.out.write(template.render(template_values))

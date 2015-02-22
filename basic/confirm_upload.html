@@ -1,7 +1,15 @@
 <html>
 <body>
 <ul>
-	<li>{{ txt_file_text }}</li>
+	{{ txt_file_text }}
+	{% for i in assignmentList %}
+		<li> <a href="{{i}}"> </a></li>
+	{% endfor %}
+
+	{% for i in ExamsList %}
+		<li> <a href="{{i}}"> </a></li>
+	{% endfor %}
+	
 </ul>
 </body>
 </html>
