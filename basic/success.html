@@ -4,7 +4,8 @@
 Hi, Your Google Calendar Is Updated!!!!<br>
 {{ assign}} assignments <br>
 {{ exam }} exams
-{% if users %}
-	Hi {{ user.nickname }}! Your Google Calendar has been updated! 
-{% endif %}
+<form action='/success' method="POST" enctype="multipart/form-data">
+	<input type = "text" name = "emailid"/>
+	<a href="#"><input type='submit' name='submit'/></a>
+</form>
 </body></html>
