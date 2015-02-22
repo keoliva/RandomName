@@ -53,7 +53,7 @@ class ConfirmHandler(webapp.RequestHandler):
 class CalendarHandler(webapp.RequestHandler):
 	def post(self):
 		#grab all the things in the form
-		(num_assign, num_exam) = (len(data.assignments), len(data.assignments))
+		(num_assign, num_exam) = (len(data.assignments), len(data.exams))
 		for i in range(num_assign):
 			date = self.request.get("a_Date%d" % i)
 			name = self.request.get("a_Description%d" % i)
