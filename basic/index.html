@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<title>Bootstrap Layout</title>
 		<link rel="stylesheet" href="styles/main.css">
@@ -11,7 +10,7 @@
 	
 	</head>
 	<center>
-		<img src="/static/Images/SyllaWise.png" style="position: absolute; top: 60px; left: 500px;" alt = "Picture of Logo" width="350" height="100"/>	
+	<!--h1 style = "color: black"> <font size ="40" face = "Kristen ITC"><b>SyllaWise</b></font> </h1-->
 	</center>
 	<body>
 		<header class="navbar" role="banner">
@@ -26,9 +25,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html" target ="_self">Home</a>
+      <a class="navbar-brand" href="#">Home</a>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/about" target ="_self">About SyllaWise</a></li>
+        <li><a href="/about" target ="_self"><font size = "12"></font><b>About SyllaWise</b></a></li>
       </ul>
     </div>
 
@@ -38,23 +37,28 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<form action="/calendar" method="POST" enctype="multipart/form-data">
-<ul id="assignments">
-<h1>Assignments</h1>
-{% for thing in assignmentList %}
-	<input type="text" name="a_Date{{ thing.index }}" value="{{ thing[0] }}">
-	<input type="text" name="a_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
-{% endfor %}
-</ul>
+		</header>
+		<center>
+		<br><img src="/static/Images/doc.png" style="position: relative; top: 0; left: 0;" alt = "Picture of Doc" width="650" height="600"/>
+		<img src="/static/Images/SyllaWise.png" style="position: absolute; top: 330px; left: 300px;" alt = "Picture of Logo" width="750" height="200"/>
+		</br>
 
-<ul id="exams">
-<h1>Exams</h1>
-{% for thing in exams %}
-	<input type="text" name="e_Date{{ thing.index }}" value="{{ thing[0] }}">
-	<input type="text" name="e_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
-{% endfor %}	
-</ul>
-<input type="submit">
-</form>
-</body>
+		</center> 
+		<br></br> 	
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+			    <form action='/confirm' method="POST" enctype="multipart/form-data">
+			    <!--span class="btn btn-primary btn-file"-->
+			    <div align = "center">
+			    <b> 
+			    <font size ="5"> Upload File </font> 
+    			<input type="file"> 
+    			<br>
+    			<!--button type="submit" class="btn btn-danger">Submit</button-->
+    			<a href="#"><input type='submit' name='submit'/></a>
+    			</br>
+    			</b>
+    			</div>
+			    </form>
+    
+	</body>
 </html>

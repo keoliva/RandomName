@@ -21,7 +21,7 @@ class MainHandler(webapp.RequestHandler):
 		upload_url = blobstore.create_upload_url('/upload')
 	
 		template_values = {'upload_url' : upload_url}
-		template = jinja_environment.get_template('home.html')
+		template = jinja_environment.get_template('index.html')
 		self.response.out.write(template.render(template_values))
 	
 	def post(self):
@@ -31,15 +31,21 @@ class MainHandler(webapp.RequestHandler):
 		print "pls?", uploaded_file
 		self.redirect('/confirm')
 		
+class AboutHandler(webapp.RequestHandler):
+        def get(self):
+                template = jinja_environment.get_template('about.html')
+		self.response.out.write(template.render())
+                
 class ConfirmHandler(webapp.RequestHandler):
 	def post(self):
 		fileitem = self.request.get('user_file')
 		unicode_str = fileitem.decode('utf-8')
-		#logging.info(fileitem)
+		logging.info("``````````````````````````")
+		logging.debug(fileitem)
 		(assignmentList,examList) = wordExtraction.main(unicode_str)
 		data.assignments = assignmentList
 		data.exams = examList
-		logging.info(assignmentList[0])
+		#logging.info(assignmentList[0])
 		
 		#assignmentList = unicode_str.split("\n")
 		#logging.debug(assignmentList)
@@ -57,6 +63,7 @@ class CalendarHandler(webapp.RequestHandler):
 		for i in range(num_assign):
 			date = self.request.get("a_Date%d" % i)
 			name = self.request.get("a_Description%d" % i)
+
 		
 		for i in range(num_exam):
 			date = self.request.get("e_Date%d" % i)
@@ -96,6 +103,7 @@ class ServeHandler(blobstore_handlers.BlobstoreDownloadHandler):
 
 app = webapp.WSGIApplication(
 [('/', MainHandler),
+         ('/about', AboutHandler),
 	('/confirm', ConfirmHandler),
 	('/calendar', CalendarHandler),
 	('/success', SuccessHandler),

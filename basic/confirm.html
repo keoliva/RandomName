@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
 	<head>
 		<title>Bootstrap Layout</title>
 		<link rel="stylesheet" href="styles/main.css">
@@ -11,7 +10,8 @@
 	
 	</head>
 	<center>
-		<img src="/static/Images/SyllaWise.png" style="position: absolute; top: 60px; left: 500px;" alt = "Picture of Logo" width="350" height="100"/>	
+	<h1 style = "color: black"> <font size ="20" face = "Kristen ITC"><b>SyllaWise</b></font> </h1>
+	<link rel="parent" href="wildcats.htm" target="_blank">
 	</center>
 	<body>
 		<header class="navbar" role="banner">
@@ -28,7 +28,7 @@
       </button>
       <a class="navbar-brand" href="index.html" target ="_self">Home</a>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/about" target ="_self">About SyllaWise</a></li>
+        <li><a href="about.html" target ="_self">About SyllaWise</a></li>
       </ul>
     </div>
 
@@ -38,23 +38,15 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<form action="/calendar" method="POST" enctype="multipart/form-data">
-<ul id="assignments">
-<h1>Assignments</h1>
-{% for thing in assignmentList %}
-	<input type="text" name="a_Date{{ thing.index }}" value="{{ thing[0] }}">
-	<input type="text" name="a_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
-{% endfor %}
-</ul>
-
-<ul id="exams">
-<h1>Exams</h1>
-{% for thing in exams %}
-	<input type="text" name="e_Date{{ thing.index }}" value="{{ thing[0] }}">
-	<input type="text" name="e_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
-{% endfor %}	
-</ul>
-<input type="submit">
-</form>
 </body>
-</html>
+
+  assignmentList= [('01/21','Kayla'),('05/23','Shashank'),('03/23', 'Narjis'),('12/23','John')]
+
+  <h1>Confirm</h1>
+  <ul>
+  {% for element in assignmentList %}
+    {% for key, value in elements.items() %}
+      <input type="text" name="Date" value="{{key}}">
+      <input type="text" name="Description" value="{{value}}">
+    {% endfor %}
+  </ul>

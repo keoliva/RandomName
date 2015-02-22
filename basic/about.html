@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
 	<head>
 		<title>Bootstrap Layout</title>
 		<link rel="stylesheet" href="styles/main.css">
@@ -11,7 +10,8 @@
 	
 	</head>
 	<center>
-		<img src="/static/Images/SyllaWise.png" style="position: absolute; top: 60px; left: 500px;" alt = "Picture of Logo" width="350" height="100"/>	
+	<!--h1 style = "color: black"> <font size ="20" face = "Kristen ITC"><b>SyllaWise</b></font> </h1-->
+	<img src="/static/Images/SyllaWise.png" style="position: absolute; top: 60px; left: 500px;" alt = "Picture of Logo" width="350" height="100"/>
 	</center>
 	<body>
 		<header class="navbar" role="banner">
@@ -28,7 +28,7 @@
       </button>
       <a class="navbar-brand" href="index.html" target ="_self">Home</a>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/about" target ="_self">About SyllaWise</a></li>
+        <li><a href="about.html" target ="_self"><b>About SyllaWise</b></a></li>
       </ul>
     </div>
 
@@ -38,23 +38,16 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<form action="/calendar" method="POST" enctype="multipart/form-data">
-<ul id="assignments">
-<h1>Assignments</h1>
-{% for thing in assignmentList %}
-	<input type="text" name="a_Date{{ thing.index }}" value="{{ thing[0] }}">
-	<input type="text" name="a_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
-{% endfor %}
-</ul>
+    <br><br><br><br><br><b>Syllawise is an app designed to help students keep track of important due dates on their syllabi. Important assignments and exams can now be directly exported onto a calendar that will automatically send reminder emails and notifications to the student.</b></br></br>
 
-<ul id="exams">
-<h1>Exams</h1>
-{% for thing in exams %}
-	<input type="text" name="e_Date{{ thing.index }}" value="{{ thing[0] }}">
-	<input type="text" name="e_Description{{ thing.index }}" value="{{ thing[1] }}"><br>
-{% endfor %}	
-</ul>
-<input type="submit">
-</form>
-</body>
-</html>
+	<br>Follow these 3 simple steps to get started:</br>
+
+	<br><img src="/static/Images/syllabusicon.png" alt = "Syllabus Icon" width="40" height="40"><b>&nbsp;&nbsp;Step 1: Upload </b> Syllabus</br>
+	<br><img src="/static/Images/confirmdate.png" alt = "Confirm Date Icon" width="40" height="40"><b>&nbsp;&nbsp;Step 2: Confirm </b> dates and their corresponding assignments/exams</br>
+	<br><img src="/static/Images/googleicon.png" alt = "Google Icon" width="40" height="40"><b>&nbsp;&nbsp;Step 3: Provide </b> an email address</br>
+
+	<br>And you're done!</br>
+
+	<br><b>Syllawise helps you be more organized than ever before!</b></br>
+
+	</body>
